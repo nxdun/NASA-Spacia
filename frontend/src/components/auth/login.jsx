@@ -1,66 +1,77 @@
-import "../../styles/Login.css"; // Import your CSS file
+import {
+  Grid,
+  Paper,
+  Avatar,
+  TextField,
+  Button,
+  Typography,
+  Link,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+const Login = () => {
 
-const LoginScreen = () => {
-  const ShootingStars = () => {
-    const numStars = 20;
-    const stars = [];
-
-    for (let i = 0; i < numStars; i++) {
-      const randomTop = `${Math.random() * 100}vh`; // Random top position between 0 and 100vh
-      const randomLeft = `${Math.random() * 100}vw`; // Random left position between 0 and 100vw
-      const randomDuration = `${Math.random() * 2 + 1}s`; // Random animation duration between 1s and 3s
-
-      const starStyle = {
-        top: randomTop,
-        left: randomLeft,
-        animationDuration: randomDuration,
-      };
-
-      stars.push(
-        <span key={i} className={`star star-${i}`} style={starStyle} />
-      );
-    }
-
-    return <section className="bg-stars">{stars}</section>;
+  //styling section
+  const paperStyle = {
+    padding: 30,
+    height: "60vh",
+    width: 290,
+    margin: "15vh auto",
+    opacity: 0.9,
+    //add a outline to the paper
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
   };
+  const avatarStyle = { backgroundColor: "#1bbd7e" };
+  const btnstyle = { margin: "8px 0" };
 
+  
+  //rendering section
   return (
-    <div className="container-login">
-      <ShootingStars /> {/* Including my ShootingStars component */}
-      <form className="form1">
-        <div className="form-title">
-          <span>The Unknown Universe</span>
-        </div>
-        <div className="title-2">
-          <span>Log in</span>
-        </div>
-        <div className="input-container">
-          <input
-            className="input-mail"
-            type="email"
-            placeholder="Enter email"
-          />
-          <span> </span>
-        </div>
-        <div className="input-container">
-          <input
-            className="input-pwd"
-            type="password"
-            placeholder="Enter password"
-          />
-        </div>
-        <button type="submit" className="submitx">
-          <span className="sign-text">Sign in</span>
-        </button>
-        <p className="signup-link">
-          No account?{" "}
-          <a href="/signup" className="up">
-            Sign up!
-          </a>
-        </p>
-      </form>
-    </div>
+    <Grid >
+      <Paper elevation={10} style={paperStyle}>
+        <Grid align="center" >
+          <Avatar style={avatarStyle}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <h2>Sign In</h2>
+        </Grid>
+        <TextField
+          label="Username"
+          placeholder="Enter username"
+          fullWidth
+          required
+        />
+        <TextField
+          label="Password"
+          placeholder="Enter password"
+          type="password"
+          fullWidth
+          required
+        />
+        <FormControlLabel
+          control={<Checkbox name="checkedB" color="primary" />}
+          label="Remember me"
+        />
+        <Button
+          type="submit"
+          color="primary"
+          variant="contained"
+          style={btnstyle}
+          fullWidth
+        >
+          Sign in
+        </Button>
+        <Typography>
+          <Link href="#">Forgot password ?</Link>
+        </Typography>
+        <Typography>
+          {" "}
+          Do you have an account ?<Link href="#">Sign Up</Link>
+        </Typography>
+      </Paper>
+    </Grid>
   );
 };
 
-export default LoginScreen;
+export default Login;
