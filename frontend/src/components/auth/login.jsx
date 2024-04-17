@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Grid,
   Paper,
@@ -10,16 +10,18 @@ import {
   FormControlLabel,
   Checkbox,
   Backdrop,
-  CircularProgress
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { login } from '../../services/authService';
-import swal from 'sweetalert2';
+import { login } from "../../services/authService";
+import swal from "sweetalert2";
+import "ldrs/infinity";
+
+// Default values shown
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); // State to control backdrop visibility
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const paperStyle = {
     padding: 30,
@@ -34,24 +36,22 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); // Show backdrop on login button click
+    setLoading(true);
     const success = await login(username, password);
-    setLoading(false); // Hide backdrop after login result received
+    setLoading(false);
     if (success) {
-      console.log('Login successful!');
+      console.log("Login successful!");
       swal.fire({
-        title: 'Login Successful',
-        icon: 'success',
-        confirmButtonText: 'Continue'
+        title: "Login Successful",
+        icon: "success",
+        confirmButtonText: "Continue",
       });
-      // Redirect to the dashboard or any other protected route
     } else {
-      console.log('Login failed. Please try again.');
-      // Handle login failure
+      console.log("Login failed. Please try again.");
       swal.fire({
-        title: 'Login Failed',
-        icon: 'error',
-        confirmButtonText: 'Retry'
+        title: "Login Failed",
+        icon: "error",
+        confirmButtonText: "Retry",
       });
     }
   };
@@ -105,9 +105,18 @@ const Login = () => {
           Do you have an account ?<Link href="#">Sign Up</Link>
         </Typography>
       </Paper>
-      {/* Backdrop to show loading indicator */}
-      <Backdrop open={loading} style={{ zIndex: 999, color: '#fff' }}>
-        <CircularProgress color="inherit" />
+      <Backdrop
+        open={loading}
+        style={{ zIndex: 999, backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+      >
+        <l-infinity
+          size="55"
+          stroke="4"
+          stroke-length="0.15"
+          bg-opacity="0.1"
+          speed="1.3"
+          color="black"
+        ></l-infinity>
       </Backdrop>
     </Grid>
   );
