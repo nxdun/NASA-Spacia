@@ -7,9 +7,19 @@ const logger = require('../config/logger.js');
 const hashPassword = require('../middleware/hashPassword.js');
 
 // GET a single user role by ID and return as JSON
-router.get('/:id', (req, res) => {
+router.get('/:id',async (req, res) => {
     try{
     logger.debug('[userRoles] get user role by id request received with id: ' + req.params.id);
+
+    //check parameter is valid object id
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        logger.error('[userRoles] get request failed with error: Invalid ID');
+        res.status(400).json({ message: " :[  Invalid ID" });
+        return;
+    }
+    
+    const userRole = await UserRoles.findById(req.params.id);
+    res.userRole = userRole;
     res.json(res.userRole);
     }catch (error) {
         logger.error('[userRoles] get request failed with error: ' + error.message);
@@ -39,14 +49,25 @@ router.patch('/:id', hashPassword, async (req, res) => {
 
     try {
         logger.debug('[userRoles] update user role request received with id: ' + req.params.id);
-        if (req.body.username != null) {
-            res.userRole.username = req.body.username;
+        //validate object id
+        if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+            logger.error('[userRoles] update request failed with error: Invalid ID');
+            res.status(400).json({ message: " :[  Invalid ID" });
+            return;
         }
-        if (req.body.password != null) {
-            res.userRole.password = req.body.password;
+        //check username and password are not empty
+        if (!req.body.username || !req.body.password) {
+            logger.error('[userRoles] update request failed with error: Username and password are required');
+            res.status(400).json({ message: " :[  Username and password are required" });
+            return;
         }
-
-        const updatedUserRole = await res.userRole.save();
+        const newRole = {
+            username: req.body.username,
+            password: req.body.password
+        };
+        const updatedUserRole = await UserRoles.findByIdAndUpdate
+            (req.params.id, newRole
+                , { new: true });
         res.json(updatedUserRole);
     } catch (error) {
         logger.error('[userRoles] update user request failed with error: ' + error.message);
@@ -56,6 +77,14 @@ router.patch('/:id', hashPassword, async (req, res) => {
 
 // DELETE a user role
 router.delete('/:id', async (req, res) => {
+
+    //check parameter is valid object id
+    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+        logger.error('[userRolesRoutes] delete request failed with error: Invalid ID');
+        res.status(400).json({ message: " :[  Invalid ID" });
+        return;
+    }
+    
 
     logger.info('[userRolesRoutes] delete user role request received with id: ' + req.params.id);
     try {

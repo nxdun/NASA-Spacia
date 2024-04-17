@@ -7,6 +7,7 @@ const { connect } = require("./config/dbconnection.js");
 const logger = require("./config/logger.js");
 const authRouter = require("./routes/authRouter.js");
 const apiRouter = require("./routes/userRolesRoutes.js");
+const jwtAuth = require("./middleware/middlewareJwt.js");
 
 const app = express();
 const port = process.env.PORT || 3000; //default is 3000
@@ -24,8 +25,10 @@ app.use(bodyParser.json()); // parse Body field
 app.use(limiter); // Apply the rate limiter to all requests
 
 // Version 1 routes
-app.use("/v1/auth", authRouter);
+//use jwtAuth middleware to protect the routes
+app.use("/v1/api", jwtAuth);
 app.use("/v1/api", apiRouter);
+app.use("/v1/auth", authRouter);
 
 //route all other requests
 app.use("*", (req, res) => {

@@ -86,16 +86,16 @@ router.get('/logout', (req, res) => {
 // Forget password route
 router.post('/forgetpassword', hashPassword, async (req, res) => {
     try {
-        const { username, role, newpassword } = req.body;
+        const { username, newpassword } = req.body;
 
         // Check if user is already logged in
         if (req.cookies.auth) {
-            return res.status(400).json({ message: 'Please log out first' });
+            return res.status(400).json({ message: 'user already logged in' });
         }
 
         // Check if username and role are provided
         if (!username || !role || !newpassword) {
-            return res.status(400).json({ message: 'Username, role, and new password are required' });
+            return res.status(400).json({ message: 'Username, and new password are required' });
         }
 
         // Find user by username
@@ -117,7 +117,7 @@ router.post('/forgetpassword', hashPassword, async (req, res) => {
 });
 
 // Validate token route
-router.post('/validate', jwtAuth, async (req, res) => {
+router.get('/validate', jwtAuth, async (req, res) => {
     res.status(200).json({ message: 'Token is valid' });
 });
 

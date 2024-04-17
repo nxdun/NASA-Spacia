@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const Logger = require('./logger.js');
 require('dotenv').config();
 let database;
-
+mongoose.set('strictQuery', true);
 // Connect to the database
 const connect = async () => {
     const uri = process.env.MONGO_URL;
