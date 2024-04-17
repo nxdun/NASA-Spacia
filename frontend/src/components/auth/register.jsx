@@ -7,12 +7,10 @@ import {
   Button,
   Typography,
   Link,
-  FormControlLabel,
-  Checkbox,
   Backdrop,
 } from "@mui/material";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { login } from "../../services/authService";
+import HowToRegOutlinedIcon from '@mui/icons-material/HowToRegOutlined';
+import { register } from "../../services/authService";
 import swal from "sweetalert2";// alert library
 import "ldrs/infinity";  //loading spinner
 
@@ -35,7 +33,6 @@ const Login = () => {
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "8px 0" };
-
   //main auth handler
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -50,18 +47,22 @@ const Login = () => {
       return;
     }
     setLoading(true);
-    const success = await login(username, password);
+    const success = await register(username, password);
     setLoading(false);
     if (success) {
-      console.log("Login successful!");
+      console.log("Registeration successful!");
       swal.fire({
-        title: "Login Successful",
+        title: "Registration Successful!!",
         icon: "success",
-        confirmButtonText: "Continue",
+        confirmButtonText: "Login",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/login";
+        }
       });
     } else {
       swal.fire({
-        title: "Login Failed",
+        title: "registration Failed",
         icon: "error",
         confirmButtonText: "Okay",
       });
@@ -73,9 +74,9 @@ const Login = () => {
       <Paper elevation={10} style={paperStyle}>
         <Grid align="center">
           <Avatar style={avatarStyle}>
-            <LockOutlinedIcon />
+            <HowToRegOutlinedIcon />
           </Avatar>
-          <h2>Sign In</h2>
+          <h2>Register</h2>
         </Grid>
         <form onSubmit={handleLogin}>
           <TextField
@@ -95,10 +96,6 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <FormControlLabel
-            control={<Checkbox name="remember" color="primary" />}
-            label="Remember me"
-          />
           <Button
             type="submit"
             color="primary"
@@ -106,15 +103,12 @@ const Login = () => {
             style={btnstyle}
             fullWidth
           >
-            Sign in
+            Register
           </Button>
         </form>
         <Typography>
-          <Link href="#">Forgot password ?</Link>
-        </Typography>
-        <Typography>
           {" "}
-          Do you have an account ?<Link href="/register">Sign Up</Link>
+          Want to Login ? <Link href="/login">Login</Link>
         </Typography>
       </Paper>
       <Backdrop
