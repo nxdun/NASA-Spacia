@@ -18,7 +18,7 @@ export const LogoutHandler = () => {
         confirmButtonText: "Okay"
       
     }).then((result) => {
-      if (result.isConfirmed || result.isDismissed) {
+      if (result.isConfirmed) {
         //navigate to login page
         window.location.href = "/login";
       }

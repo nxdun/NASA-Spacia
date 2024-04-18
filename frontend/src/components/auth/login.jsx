@@ -54,10 +54,10 @@ const Login = () => {
       swal
   .fire({
     title: "Login successful!",
-    text: `Redirecting to user space in 5 seconds`,
+    text: `Redirecting to user space`,
     icon: "success",
     showCancelButton: false,
-    timer: 5000, // Adjusted timer duration to 5 seconds
+    timer: 2000, 
     timerProgressBar: true,
     confirmButtonColor: "#FF2E63",
     cancelButtonColor: "#08D9D6",
@@ -67,9 +67,9 @@ const Login = () => {
       const timerElement = document.querySelector('.swal2-timer-progress-bar');
       timerInterval = setInterval(() => {
         if (timerElement) {
-          timerElement.style.width = `${swal.getTimerLeft() / 50}%`;
+          timerElement.style.width = `${swal.getTimerLeft()}%`;
         }
-      }, 100);
+      }, 400);
     },
     willClose: () => {
       clearInterval(timerInterval);
