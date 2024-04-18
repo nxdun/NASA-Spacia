@@ -9,4 +9,7 @@ export default defineConfig({
       src: "/src",
     },
   },
+  GOOGLE: {
+    ReCaptcha : "6Leca74pAAAAALKX8Ze8i7OvxtOmrWyoRc6WS8vE",
+  },
 })

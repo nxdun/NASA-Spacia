@@ -11,13 +11,17 @@ export const LogoutHandler = () => {
         "https://auth-server-x-fab950a2305f.herokuapp.com/v1/auth/logout/"
       );
       console.log("logout res:", JSON.stringify(response));
-    //navigate to login page
-    window.location.href = "/login";
-    //return logout alert in return statement
-    return swal.fire({
-      title: "User Logged Out",
-      icon: "success",
-      confirmButtonText: "Okay",
+      //return logout alert in return statement
+      return swal.fire({
+        title: "User Logged Out",
+        icon: "success",
+        confirmButtonText: "Okay"
+      
+    }).then((result) => {
+      if (result.isConfirmed || result.isDismissed) {
+        //navigate to login page
+        window.location.href = "/login";
+      }
     });
     
   } catch (error) {

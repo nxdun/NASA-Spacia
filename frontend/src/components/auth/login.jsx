@@ -9,22 +9,20 @@ import {
   Link,
   FormControlLabel,
   Checkbox,
-  Backdrop,
 } from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { login } from "../../services/authService";
-import swal from "sweetalert2";// alert library
-import "ldrs/infinity";  //loading spinner
-
-// Default values shown
+import { login } from "src/services/authService";
+import swal from "sweetalert2";
+import DynamicBackdrop from "src/components/common/backdrop"; // Import the backdrop component
+import ReCAPTCHA from "react-google-recaptcha";
+import Axios from "axios";
 
 const Login = () => {
-  //use states
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [captcha, setCaptcha] = useState("");
 
-  //styles
   const paperStyle = {
     padding: 30,
     height: "60vh",
@@ -36,37 +34,87 @@ const Login = () => {
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "8px 0" };
 
-  //main auth handler
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    //chack username and password size
+  const handleLogin = async () => {
+    
     if (username.length < 4 || password.length < 4) {
       swal.fire({
         title: "Oops!",
-        text: "Username and password must be atleast 4 characters long",
+        text: "Username and password must be at least 4 characters long",
+        icon: "warning",
+        confirmButtonText: "Go back",
+      });
+      return;
+    }
+    const success = await login(username, password);
+    setLoading(false);
+
+    if (success) {
+      console.log("Login successful!");
+      let timerInterval;
+      swal
+        .fire({
+          title: "Login successful!",
+          text: "proceeding to user space in...",
+          icon: "success",
+          showCancelButton: false,
+          timer: 4000,
+          timerProgressBar: true,
+          confirmButtonColor: "#FF2E63",
+          cancelButtonColor: "#08D9D6",
+          didOpen: () => {
+            swal.showLoading();
+            const timer = swal.getPopup().querySelector("b");
+            timerInterval = setInterval(() => {
+              timer.textContent = `${swal.getTimerLeft()}`;
+            }, 500);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        })
+        .then((result) => {
+          if (result.dismiss === swal.DismissReason.timer) {
+            window.location.href = "/userspace";
+          }
+        });
+    }
+  };
+
+  const onSignUp = (e) => {
+    e.preventDefault();
+    console.log("captcha is ", captcha);
+    if(!captcha){
+      swal.fire({
+        title: "Oops!",
+        text: "Please complete the captcha",
         icon: "warning",
         confirmButtonText: "Okay",
       });
       return;
-    }
-    setLoading(true);
-    const success = await login(username, password);
-    setLoading(false);
-    if (success) {
-      console.log("Login successful!");
-      swal.fire({
-        title: "Login Successful",
-        icon: "success",
-        confirmButtonText: "Continue",
+      
+    }else{
+      setLoading(true);
+      Axios.post("https://auth-server-x-fab950a2305f.herokuapp.com/v1/auth/capcheck", {
+        captcha: captcha
+      }).then((response) => {
+        console.log("succesfull captcha response  ", response.data);
+        setCaptcha("");
+        //now handles login
+        handleLogin();
+        ReCAPTCHA.reset();
+
+      }).catch((error) => {
+        console.log("error in captcha response ", error);
+        swal.fire({
+          title: "Oops!",
+          text: "Captcha verification failed",
+          icon: "error",
+          confirmButtonText: "Okay",
+        });
+        setLoading(false);
       });
-    } else {
-      swal.fire({
-        title: "Login Failed",
-        icon: "error",
-        confirmButtonText: "Okay",
-      });
     }
-  };
+  }
 
   return (
     <Grid>
@@ -77,7 +125,7 @@ const Login = () => {
           </Avatar>
           <h2>Sign In</h2>
         </Grid>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={onSignUp}>
           <TextField
             label="Username"
             placeholder="Enter username"
@@ -99,6 +147,11 @@ const Login = () => {
             control={<Checkbox name="remember" color="primary" />}
             label="Remember me"
           />
+          <ReCAPTCHA
+            sitekey="6Leca74pAAAAALKX8Ze8i7OvxtOmrWyoRc6WS8vE"
+            onChange={(token) => setCaptcha(token)}
+            onExpired={() => setCaptcha("")}
+          />
           <Button
             type="submit"
             color="primary"
@@ -117,19 +170,7 @@ const Login = () => {
           Do you have an account ?<Link href="/register">Sign Up</Link>
         </Typography>
       </Paper>
-      <Backdrop
-        open={loading}
-        style={{ zIndex: 999, backgroundColor: "rgba(0, 0, 0, 0.8)" }}
-      >
-        <l-infinity
-          size="55"
-          stroke="4"
-          stroke-length="0.15"
-          bg-opacity="0.1"
-          speed="1.3"
-          color="white"
-        ></l-infinity>
-      </Backdrop>
+      <DynamicBackdrop open={loading} />
     </Grid>
   );
 };

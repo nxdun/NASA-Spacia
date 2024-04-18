@@ -6,6 +6,7 @@ response code cheatsheet
 500 : internal server error
 */
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 export const login = async (username, password) => {
     try {
@@ -31,6 +32,13 @@ export const login = async (username, password) => {
       }
     } catch (error) {
       console.error('Login failed:', error);
+      Swal.fire({
+        title: "Oops!",
+        text: "Username or password is incorrect",
+        icon: "error",
+        confirmButtonText: "Try again",
+      });
+
       return false; // Return false if an error occurs during login
     }
   };
