@@ -1,39 +1,55 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-
+import React, { useState } from "react";
+import {
+  AppBar,
+  Button,
+  Tab,
+  Tabs,
+  Toolbar,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import PublicRoundedIcon from '@mui/icons-material/PublicRounded';
 const Header = () => {
+  const logsOut = () => {
+    window.location.href = "/logout";
+  };
+  const [value, setValue] = useState();
+  const theme = useTheme();
+  const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
-    //logs out the user
-    const logsOut = () => {
-        window.location.href = "/logout";
-    };
-    
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky" sx={{ left: 0, right: 0 }}>
-          <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Spacia Gallery
-            </Typography>
-            <Button color="inherit" onClick={logsOut}>Log out</Button>
-          </Toolbar>
-        </AppBar>
-      </Box>
-    );
+  return (
+    <React.Fragment>
+      <AppBar sx={{ background: "#063970" }}>
+        <Toolbar>
+          <PublicRoundedIcon sx={{ transform: "scale(2)" }} />
+          {isMatch ? (
+            <>
+              <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
+                Spacia
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Tabs
+                sx={{ marginLeft: "auto" }}
+                indicatorColor="secondary"
+                textColor="inherit"
+                value={value}
+                onChange={(e, value) => setValue(value)}
+              >
+                <Tab label="Nasa Image of the day" />
+                <Tab label="api2" />
+              </Tabs>
+              <Button sx={{ marginLeft: "auto" }} variant="contained" onClick={logsOut}>
+                Logout
+              </Button>
+            </>
+          )}
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
+  );
 };
 
 export default Header;
