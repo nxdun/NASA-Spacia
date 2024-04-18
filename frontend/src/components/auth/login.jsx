@@ -52,31 +52,34 @@ const Login = () => {
       console.log("Login successful!");
       let timerInterval;
       swal
-        .fire({
-          title: "Login successful!",
-          text: "proceeding to user space in...",
-          icon: "success",
-          showCancelButton: false,
-          timer: 4000,
-          timerProgressBar: true,
-          confirmButtonColor: "#FF2E63",
-          cancelButtonColor: "#08D9D6",
-          didOpen: () => {
-            swal.showLoading();
-            const timer = swal.getPopup().querySelector("b");
-            timerInterval = setInterval(() => {
-              timer.textContent = `${swal.getTimerLeft()}`;
-            }, 500);
-          },
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        })
-        .then((result) => {
-          if (result.dismiss === swal.DismissReason.timer) {
-            window.location.href = "/userspace";
-          }
-        });
+  .fire({
+    title: "Login successful!",
+    text: `Redirecting to user space in 5 seconds`,
+    icon: "success",
+    showCancelButton: false,
+    timer: 5000, // Adjusted timer duration to 5 seconds
+    timerProgressBar: true,
+    confirmButtonColor: "#FF2E63",
+    cancelButtonColor: "#08D9D6",
+    didOpen: () => {
+      swal.showLoading();
+      // Access the timer element within the Swal popup
+      const timerElement = document.querySelector('.swal2-timer-progress-bar');
+      timerInterval = setInterval(() => {
+        if (timerElement) {
+          timerElement.style.width = `${swal.getTimerLeft() / 50}%`;
+        }
+      }, 100);
+    },
+    willClose: () => {
+      clearInterval(timerInterval);
+    },
+  })
+  .then((result) => {
+    if (result.dismiss === swal.DismissReason.timer) {
+      window.location.href = "/userspace";
+    }
+  });
     }
   };
 
@@ -101,7 +104,7 @@ const Login = () => {
         setCaptcha("");
         //now handles login
         handleLogin();
-        ReCAPTCHA.reset();
+
 
       }).catch((error) => {
         console.log("error in captcha response ", error);
