@@ -16,6 +16,9 @@ const BodyImageView = () => {
         thumbnail: url.thumb,
       }));
       setImages(imageItems);
+      //wait a 2 seconds before closing the backdrop
+      
+      
     }
   }, [loading, imageUrls]);
 
