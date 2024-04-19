@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -8,30 +8,53 @@ import {
 } from "@mui/material";
 
 const Footer = () => {
+  const [isAppBarVisible, setIsAppBarVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const isScrollAtEnd =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
+      setIsAppBarVisible(isScrollAtEnd);
+    };
+
+    // Check initial scroll position
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <React.Fragment>
-      <AppBar
-        position="absolute" 
-        sx={{ background: "#063970", top: "auto", bottom: 0 }} 
-      >
-        <Toolbar>
-          {isMatch ? (
-            <>
-              <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
-                Spacia
-              </Typography>
-            </>
-          ) : (
-            <>
-              {/* You can add additional content here for larger screens */}
-            </>
-          )}
-        </Toolbar>
-      </AppBar>
-    </React.Fragment>
+    <AppBar
+      sx={{
+        background: "rgba(234, 234, 234, 1)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        boxShadow: "none",
+        position: "fixed",
+        bottom: 0,
+        height: "5vh",
+        top: "auto",
+        width: "100%",
+        zIndex: 1,
+        visibility: isAppBarVisible ? "visible" : "hidden",
+      }}
+    >
+      <Toolbar>
+        {isMatch ? (
+          <>
+            <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
+              Spacia
+            </Typography>
+          </>
+        ) : (
+          <>{/* additional content here for larger screens */}</>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 

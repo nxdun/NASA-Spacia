@@ -1,44 +1,21 @@
+// Userspace component
 import Header from "src/components/userSpace/subcomps/header";
-// import DailyLanding from "src/components/userSpace/subcomps/dailyLanding";
-// import ImageList from "src/components/userSpace/subcomps/imageList";
+import LandingBody from "src/components/userSpace/subcomps/landingBody";
 // import Footer from "src/components/userSpace/subcomps/footer";
-import { Container, Grid, Skeleton } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import "src/styles/index.css";
 
 const Userspace = () => {
   return (
-    <Container width>
+    <Container>
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Header />
         </Grid>
-
         <Grid item xs={12}>
-          <Skeleton
-            sx={{ bgcolor: "pink" }}
-            variant="rectangular"
-            width="100%"
-            height="90vh"
-          />
+          <LandingBody />
         </Grid>
-
-        <Grid item xs={12}>
-          <Skeleton
-            sx={{ bgcolor: "black" }}
-            variant="rectangular"
-            width="100%"
-            height="800px"
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Skeleton
-            sx={{ bgcolor: "yellow" }}
-            variant="rectangular"
-            width="100%"
-            height="10vh"
-          />
-        </Grid>
+        {/* <Footer /> */}
       </Grid>
     </Container>
   );
