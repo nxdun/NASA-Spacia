@@ -26,6 +26,7 @@ Page.propTypes = {
 };
 
 const DailyLanding = () => {
+  
   const parallax = useRef(null);
 
   const scroll = (to) => {

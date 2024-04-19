@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-
-export const NASAImagesComponent = () => {
+export const FetchFromNasaApi = () => {
   // State to store image URLs
   const [imageUrls, setImageUrls] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Function to fetch images from NASA API
@@ -20,8 +20,10 @@ export const NASAImagesComponent = () => {
 
         // Set the image URLs in state
         setImageUrls(urls);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching images:", error);
+        setLoading(false);
       }
     };
 
@@ -29,15 +31,20 @@ export const NASAImagesComponent = () => {
     fetchImages();
   }, []); // Empty dependency array ensures that this effect runs only once after the component mounts
 
-  return (
-    <div>
-      <h2>NASA Images</h2>
-      <div>
-        {imageUrls.map((url, index) => (
-          <img key={index} src={url} alt={`NASA Image ${index + 1}`} />
-        ))}
-      </div>
-    </div>
-  );
+  // Return a promise that resolves with the image URLs once they are available
+  return new Promise((resolve, reject) => {
+    if (loading) {
+      // If still loading, wait for images to load
+      const interval = setInterval(() => {
+        if (!loading) {
+          clearInterval(interval);
+          resolve(imageUrls);
+        }
+      }, 100);
+    } else {
+      // If not loading, resolve immediately
+      resolve(imageUrls);
+      reject("Error fetching images");
+    }
+  });
 };
-

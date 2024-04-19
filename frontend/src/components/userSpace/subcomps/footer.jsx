@@ -14,7 +14,7 @@ const Footer = () => {
   return (
     <React.Fragment>
       <AppBar
-        position="fixed" 
+        position="absolute" 
         sx={{ background: "#063970", top: "auto", bottom: 0 }} 
       >
         <Toolbar>
