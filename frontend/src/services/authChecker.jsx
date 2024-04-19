@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios"; // or any library for making HTTP requests
 import PropTypes from "prop-types";
-
+import DynamicBackdrop from "src/components/common/backdrop";
 const AuthChecker = ({ children }) => {
   const [authenticated, setAuthenticated] = useState(false);
 
@@ -34,13 +34,19 @@ const AuthChecker = ({ children }) => {
               }
             })
             .catch((error) => {
-              console.error("Error:", error);
+              //check error code and redirect to login page
+              if (error.response.status === 401) {
+                alert("Session expired. Please login again.");
+                window.location.href = "/logout";
+              }
               // Handle error
               setAuthenticated(true);
             });
         }
       } catch (error) {
-        console.error("Error:", error);
+
+        console.error("Auth Error:", error);
+        window.location.href = "/login";
         // Handle error
         setAuthenticated(false);
       }
@@ -49,7 +55,7 @@ const AuthChecker = ({ children }) => {
     checkAuthentication();
   }, []);
 
-  return authenticated ? children : null;
+  return authenticated ? children : <DynamicBackdrop open={!authenticated} />;
 };
 
 AuthChecker.propTypes = {

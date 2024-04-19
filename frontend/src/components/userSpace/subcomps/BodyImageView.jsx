@@ -9,9 +9,11 @@ const BodyImageView = () => {
 
   useEffect(() => {
     if (!loading) {
+      console.log("Image urls:", imageUrls);
+      // Convert imageUrls to ImageGallery items
       const imageItems = imageUrls.map((url) => ({
-        original: url,
-        thumbnail: url,
+        original: url.hdurl,
+        thumbnail: url.thumb,
       }));
       setImages(imageItems);
     }

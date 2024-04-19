@@ -13,7 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { login } from "src/services/authService";
 import swal from "sweetalert2";
-import DynamicBackdrop from "src/components/common/backdrop"; // Import the backdrop component
+import DynamicBackdrop from "src/components/common/backdrop"; 
 import ReCAPTCHA from "react-google-recaptcha";
 import Axios from "axios";
 

@@ -1,7 +1,7 @@
 import BodyImageView from "src/components/userSpace/subcomps/BodyImageView";
 const LandingBody = () => {
-  const h = 97;
-  const top = 7;
+  const h = 90;
+  const top = 30;
   const style1 = {
     height: `${h}vh`,
     width: "100%",

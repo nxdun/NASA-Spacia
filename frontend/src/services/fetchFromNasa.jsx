@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const useFetchFromNasaApi = () => {
-  const [imageUrls, setImageUrls] = useState([]);
+  const [imageUrls, setImageUrls] = useState([]);  
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,8 +12,11 @@ export const useFetchFromNasaApi = () => {
           "https://api.nasa.gov/planetary/apod?api_key=0NGSKRUWdabzSnuMW4wjI7lqvjnRKPchis0gVDHc&count=10"
         );
 
-        const urls = response.data.map((item) => item.hdurl);
-
+        // Extract hdurl and thumbnail_url from response
+        const urls = response.data.map((item) => ({
+          hdurl: item.hdurl,
+          thumb: item.url,
+        }));
         setImageUrls(urls);
         setLoading(false);
       } catch (error) {
