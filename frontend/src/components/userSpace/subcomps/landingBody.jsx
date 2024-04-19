@@ -1,8 +1,7 @@
-import { Box, Skeleton } from "@mui/material";
-
-const landingBody = () => {
-  const h = 50;
-  const top = 9;
+import BodyImageView from "src/components/userSpace/subcomps/BodyImageView";
+const LandingBody = () => {
+  const h = 97;
+  const top = 7;
   const style1 = {
     height: `${h}vh`,
     width: "100%",
@@ -24,24 +23,11 @@ const landingBody = () => {
     top: `${h + top}vh`, // Position below the first skeleton
     left: "0",
   };
-
-
   return (
-    <>
-      <Box>
-       
-      </Box>
-
-      <Box>
-        <Skeleton
-          style={style2}
-          sx={{ bgcolor: "white" }}
-          variant="rectangular"
-          position="absolute"
-        />
-      </Box>
-    </>
+    <div style={style1}>
+    <BodyImageView /> 
+    </div>
   );
 };
 
-export default landingBody;
+export default LandingBody;
