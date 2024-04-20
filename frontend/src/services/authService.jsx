@@ -20,11 +20,10 @@ export const login = async (username, password) => {
   
   
       if (response.status === 200) {
+        
         const data = response.data;
-        //get the cookie from the response
-        console.log("..........token login data ",JSON.stringify(data));
-        console.log("..........token tok ",JSON.stringify(data.token));
         localStorage.setItem('auth', data.token);
+        localStorage.setItem('username', username);
         return true; // Return true if login is successful
       } else {
         // Handle authentication errors

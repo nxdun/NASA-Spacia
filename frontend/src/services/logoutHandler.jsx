@@ -7,6 +7,7 @@ export const LogoutHandler = () => {
       console.log("logout initated");
       //no need to wait for the response, just log out
       localStorage.removeItem("auth");
+      localStorage.removeItem("username");
       const response = axios.get(
         `${import.meta.env.VITE_AUTH_SERVER}/v1/auth/logout/`
       );

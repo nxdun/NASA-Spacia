@@ -11,6 +11,20 @@ const userRoles = new Schema({
     type: String,
     required: true
   },
+  //new user role field
+  //user saved images includes title and url 
+  images: [
+    {
+      title: {
+        type: String,
+        required: true
+      },
+      url: {
+        type: String,
+        required: true
+      }
+    }
+  ],
 
 });
 

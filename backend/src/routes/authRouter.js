@@ -59,6 +59,8 @@ router.post('/login', async (req, res) => {
 router.post('/register', hashPassword, async (req, res) => {
     try {
         const { username, password } = req.body;
+        //null images array
+        const images = [];
 
         // Check if user is already logged in
         if (req.cookies.auth) {
@@ -71,7 +73,7 @@ router.post('/register', hashPassword, async (req, res) => {
         }
 
         // Create new user role
-        const newUserRole = await UserRoles.create({ username, password });
+        const newUserRole = await UserRoles.create({ username, password, images });
 
         logger.info(`New user role created successfully with id: ${newUserRole._id}`);
         res.status(200).json({ message: 'Successfully registered' });
@@ -80,6 +82,59 @@ router.post('/register', hashPassword, async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 });
+
+//append image data to user role by searching username 
+router.post('/appendimage', jwtAuth, async (req, res) => {
+
+    try {
+        const { username, title, url } = req.body;
+
+        // Check if username, title and url are provided
+        if (!username || !title || !url) {
+            return res.status(400).json({ message: 'Username, title and url are required' });
+        }
+
+        // Find user by username
+        const userRole = await UserRoles.findOne({ username });
+
+        if (!userRole) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        // Append image data to user role
+        userRole.images.push({ title, url });
+        await userRole.save();
+
+        res.status(200).json({ message: 'Image data appended successfully' });
+    } catch (error) {
+        logger.error(`Append image error: ${error.message}`);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+//retrieve image data from user role by searching username
+router.post('/retrieveimage', jwtAuth, async (req, res) => {
+    try {
+        const { username } = req.body;
+
+        // Check if username is provided
+        if (!username) {
+            return res.status(400).json({ message: 'Username is required' });
+        }
+
+        // Find user by username
+        const userRole = await UserRoles.findOne({ username });
+
+        if (!userRole) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ images: userRole.images });
+    } catch (error) {
+        logger.error(`Retrieve image error: ${error.message}`);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+})
 
 // Logout route
 router.get('/logout', (req, res) => {

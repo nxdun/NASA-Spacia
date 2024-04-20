@@ -1,7 +1,7 @@
 /*
 *   @desc: Middleware to verify the JWT token
 *   @param: request, response, next
-*   @return: JSON object
+*   @return: JSON objecttt
 */
 const jwt = require('jsonwebtoken');
 const logger = require('../config/logger');

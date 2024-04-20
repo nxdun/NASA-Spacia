@@ -17,6 +17,7 @@ const Header = ({ value, setValue, logsOut }) => {
   ping.register();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
+  const username = localStorage.getItem("username");
 
   return (
     <AppBar
@@ -54,7 +55,8 @@ const Header = ({ value, setValue, logsOut }) => {
         ) : (
           <>
             <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
-              Spacia
+              {//if username is not null, display the username
+              username ? `Welcome ${username}` : " stranger" }
             </Typography>
             <Tabs
               sx={{ marginLeft: "auto" }}

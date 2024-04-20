@@ -2,7 +2,7 @@ import  { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "src/styles/image-gallery.css";
-import { useFetchFromNasaApi } from "src/services/fetchFromNasa";
+import { useFetchFromNasaApi } from "src/services/fetchFromServers";
 
 const BodyImageView = () => {
   const { loading, imageUrls } = useFetchFromNasaApi();
