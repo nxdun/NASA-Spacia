@@ -16,7 +16,6 @@ import swal from "sweetalert2";
 import DynamicBackdrop from "src/components/common/backdrop";
 import ReCAPTCHA from "react-google-recaptcha";
 import Axios from "axios";
-
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -89,7 +88,7 @@ const Login = () => {
 
   const onSignUp = (e) => {
     e.preventDefault();
-    console.log("captcha is ", captcha);
+
     if (!captcha) {
       swal.fire({
         title: "Oops!",

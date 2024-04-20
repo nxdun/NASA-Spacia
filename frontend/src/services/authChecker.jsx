@@ -23,7 +23,7 @@ const AuthChecker = ({ children }) => {
 
           axios
             .get(
-              "https://auth-server-x-fab950a2305f.herokuapp.com/v1/auth/validate",
+              `${import.meta.env.VITE_AUTH_SERVER}/v1/auth/validate`,
               { headers }
             )
             .then((response) => {

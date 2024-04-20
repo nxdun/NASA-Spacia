@@ -26,8 +26,11 @@ const Register = () => {
     height: "60vh",
     width: 290,
     margin: "15vh auto",
-    opacity: 0.9,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    opacity: 0.8,
+    background: "rgba(234, 234, 234, 0.7)", // Semi-transparent background color
+    backdropFilter: "blur(20px)", // Apply background blur
+    WebkitBackdropFilter: "blur(10px)", // Webkit version for Safari
+    boxShadow: "none", // Remove box shadow to maintain the glass effect,
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "8px 0" };

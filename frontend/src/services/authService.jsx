@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 export const login = async (username, password) => {
     try {
 
-        const response = await axios.post('https://auth-server-x-fab950a2305f.herokuapp.com/v1/auth/login/', {
+        const response = await axios.post(`${import.meta.env.VITE_AUTH_SERVER}/v1/auth/login/`, {
             username: username,
             password: password
         });
