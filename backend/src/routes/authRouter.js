@@ -7,6 +7,7 @@ const hashPassword = require('../middleware/hashPassword');
 const jwtAuth = require('../middleware/middlewareJwt');
 const logger = require('../config/logger.js');
 require('dotenv').config();
+const axios = require('axios');
 
 // Login route
 router.post('/login', async (req, res) => {
@@ -44,7 +45,10 @@ router.post('/login', async (req, res) => {
 
         // Set JWT token as cookie
         res.cookie('auth', token);
-        res.status(200).json({ message: 'Login successful' });
+        //set header
+        res.header('auth', token);
+        
+        res.status(200).json({ message: 'Login successful', token : token });
     } catch (error) {
         logger.error(`Login error: ${error.message}`);
         res.status(500).json({ message: 'Internal server error' });
@@ -80,6 +84,7 @@ router.post('/register', hashPassword, async (req, res) => {
 // Logout route
 router.get('/logout', (req, res) => {
     res.clearCookie('auth');
+    res.header('auth', '');
     res.status(200).json({ message: 'Logout successful' });
 });
 
@@ -118,7 +123,30 @@ router.post('/forgetpassword', hashPassword, async (req, res) => {
 
 // Validate token route
 router.get('/validate', jwtAuth, async (req, res) => {
-    res.status(200).json({ message: 'Token is valid' });
+    res.status(200).json({ message: 'Token is valid'});
+});
+
+router.post('/capcheck', async (req, res) => {
+    console.log("capcheck recived ", JSON.stringify(req.body));
+    try{
+        if(!req.body.captcha){
+            return res.status(400).json({ message: 'CapToken is required' });
+        }
+        const secretKey = process.env.CAPTCHA_SECRET_KEY;
+        const googleUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${req.body.captcha}`;
+       
+        const response = await axios.post(googleUrl);
+        if(response.data.success){
+            res.status(200).json({ message: 'CapToken is valid', success: true });
+        }else{
+            res.status(400).json({ message: 'CapToken is invalid', success: false });
+        }
+
+    }
+    catch (error) {
+        logger.error(`Cap check error: ${error.message}`);
+        res.status(500).json({ message: 'Internal server error', success: false});
+    }
 });
 
 module.exports = router;

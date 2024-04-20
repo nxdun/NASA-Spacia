@@ -1,11 +1,14 @@
 import  { useEffect, useState } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
+import "src/styles/image-gallery.css";
 import { useFetchFromNasaApi } from "src/services/fetchFromNasa";
 
 const BodyImageView = () => {
   const { loading, imageUrls } = useFetchFromNasaApi();
   const [images, setImages] = useState([]);
+
+
 
   useEffect(() => {
     if (!loading) {
@@ -16,9 +19,7 @@ const BodyImageView = () => {
         thumbnail: url.thumb,
       }));
       setImages(imageItems);
-      //wait a 2 seconds before closing the backdrop
-      
-      
+
     }
   }, [loading, imageUrls]);
 

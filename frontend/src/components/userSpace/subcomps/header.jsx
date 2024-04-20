@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AppBar,
   Button,
@@ -9,37 +8,54 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import PublicRoundedIcon from "@mui/icons-material/PublicRounded";
-const Header = () => {
-  const logsOut = () => {
-    window.location.href = "/logout";
-  };
-  const [value, setValue] = useState();
+import { ping } from "ldrs";
+
+import "src/styles/index.css";
+import proptypes from "prop-types";
+
+const Header = ({ value, setValue, logsOut }) => {
+  ping.register();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <AppBar
       sx={{
-        background: "rgba(234, 234, 234, 0.1)", // Semi-transparent background color
-        backdropFilter: "blur(10px)", // Apply background blur
-        WebkitBackdropFilter: "blur(10px)", // Webkit version for Safari
-        boxShadow: "none", // Remove box shadow to maintain the glass effect
+        background: "rgba(234, 234, 234, 0.1)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        boxShadow: "none",
         position: "absolute",
         width: "100%",
-        zIndex: 1, // Ensure the AppBar stays on top of other content
+        zIndex: 1,
       }}
     >
       <Toolbar>
-        <PublicRoundedIcon sx={{ transform: "scale(2)" }} />
+        <l-ping
+          size="45"
+          speed="2"
+          color="pink"
+          sx={{ transform: "scale(2)" }}
+        ></l-ping>
+
         {isMatch ? (
+          <>
+            <Tabs
+              sx={{ marginLeft: "auto" }}
+              indicatorColor="secondary"
+              textColor="inherit"
+              value={value}
+              onChange={(e, value) => setValue(value)}
+            >
+              <Tab label="Nasa Image of the day" />
+              <Tab label="api2" />
+            </Tabs>
+          </>
+        ) : (
           <>
             <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
               Spacia
             </Typography>
-          </>
-        ) : (
-          <>
             <Tabs
               sx={{ marginLeft: "auto" }}
               indicatorColor="secondary"
@@ -53,10 +69,10 @@ const Header = () => {
             <Button
               sx={{
                 marginLeft: "auto",
-                background: "rgba(255, 46, 99, 0.3)", // Semi-transparent background color
-                backdropFilter: "blur(10px)", // Apply background blur
-                WebkitBackdropFilter: "blur(10px)", // Webkit version for Safari
-                boxShadow: "none", // Remove box shadow to maintain the glass effect
+                background: "rgba(255, 46, 99, 0.3)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+                boxShadow: "none",
                 zIndex: 1,
               }}
               variant="contained"
@@ -72,3 +88,10 @@ const Header = () => {
 };
 
 export default Header;
+
+//validate prop types
+Header.propTypes = {
+  value: proptypes.number,
+  setValue: proptypes.func,
+  logsOut: proptypes.func,
+};

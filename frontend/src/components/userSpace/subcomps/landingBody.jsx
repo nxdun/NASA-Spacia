@@ -1,18 +1,19 @@
-import { Skeleton } from "@mui/material";
+import {  Skeleton } from "@mui/material";
 import BodyImageView from "src/components/userSpace/subcomps/BodyImageView";
 
 const LandingBody = () => {
   const h = 69;
   const top = 0;
   const style1 = {
-    height: `69vh`,
+    height: `80vh`,
     width: "100%",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    top: `30vh`,
+    top: `16vh`,
     left: "0",
+    zIndex: 4,
   };
 
   const style2 = {
@@ -28,10 +29,14 @@ const LandingBody = () => {
   return (
     <>
       <div style={style1}>
-        <BodyImageView />
+          <BodyImageView />
       </div>
       <div style={style2}>
-        <Skeleton variant="rectangular" sx={{ bgcolor: "yellow" }}style={style2}/>
+        <Skeleton
+          variant="rectangular"
+          sx={{ bgcolor: "yellow" }}
+          style={style2}
+        />
       </div>
     </>
   );

@@ -9,7 +9,11 @@ require('dotenv').config();
 const secret = process.env.JWT_SECRET;
 
 function jwtAuth(req, res, next) {
-    const token = req.cookies.auth;
+    let token = req.cookies.auth;
+    if(!token) {
+        token = req.headers['auth'];
+    }
+
     if (!token) {
         return res.status(401).json({ message: 'Access denied. No token provided.' });
     }
@@ -21,7 +25,7 @@ function jwtAuth(req, res, next) {
         next();
     } catch (error) {
         console.log(error);
-        res.status(400).json({ message: 'Invalid token.' });
+        res.status(401).json({ message: 'Invalid token.' });
     }
 }
 

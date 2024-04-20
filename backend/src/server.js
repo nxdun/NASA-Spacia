@@ -17,7 +17,12 @@ const limiter = rateLimit({
   message: ";{  Too many requests Try again later. };",
   code: 503, //send service unavailable response
 });
-
+//for fix cors error
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, auth"); 
+  next();
+});
 require("dotenv").config(); //enviroment variable initialization
 app.use(helmet()); // Middleware for anti-XSS attacks
 app.use(cookieParser()); // Parse cookies
@@ -25,7 +30,7 @@ app.use(bodyParser.json()); // parse Body field
 app.use(limiter); // Apply the rate limiter to all requests
 
 // Version 1 routes
-//use jwtAuth middleware to protect the routes
+//use jwtAuth middleware to protect the routes..
 app.use("/v1/api", jwtAuth);
 app.use("/v1/api", apiRouter);
 app.use("/v1/auth", authRouter);
