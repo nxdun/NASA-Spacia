@@ -13,7 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { login } from "src/services/authService";
 import swal from "sweetalert2";
-import DynamicBackdrop from "src/components/common/backdrop"; 
+import DynamicBackdrop from "src/components/common/backdrop";
 import ReCAPTCHA from "react-google-recaptcha";
 import Axios from "axios";
 
@@ -28,14 +28,16 @@ const Login = () => {
     height: "60vh",
     width: 290,
     margin: "15vh auto",
-    opacity: 0.9,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    opacity: 0.8,
+    background: "rgba(234, 234, 234, 0.7)", // Semi-transparent background color
+    backdropFilter: "blur(20px)", // Apply background blur
+    WebkitBackdropFilter: "blur(10px)", // Webkit version for Safari
+    boxShadow: "none", // Remove box shadow to maintain the glass effect,
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
   const btnstyle = { margin: "8px 0" };
 
   const handleLogin = async () => {
-    
     if (username.length < 4 || password.length < 4) {
       swal.fire({
         title: "Oops!",
@@ -52,41 +54,43 @@ const Login = () => {
       console.log("Login successful!");
       let timerInterval;
       swal
-  .fire({
-    title: "Login successful!",
-    text: `Redirecting to user space`,
-    icon: "success",
-    showCancelButton: false,
-    timer: 2000, 
-    timerProgressBar: true,
-    confirmButtonColor: "#FF2E63",
-    cancelButtonColor: "#08D9D6",
-    didOpen: () => {
-      swal.showLoading();
-      // Access the timer element within the Swal popup
-      const timerElement = document.querySelector('.swal2-timer-progress-bar');
-      timerInterval = setInterval(() => {
-        if (timerElement) {
-          timerElement.style.width = `${swal.getTimerLeft()}%`;
-        }
-      }, 400);
-    },
-    willClose: () => {
-      clearInterval(timerInterval);
-    },
-  })
-  .then((result) => {
-    if (result.dismiss === swal.DismissReason.timer) {
-      window.location.href = "/userspace";
-    }
-  });
+        .fire({
+          title: "Login successful!",
+          text: `Redirecting to user space`,
+          icon: "success",
+          showCancelButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          confirmButtonColor: "#FF2E63",
+          cancelButtonColor: "#08D9D6",
+          didOpen: () => {
+            swal.showLoading();
+            // Access the timer element within the Swal popup
+            const timerElement = document.querySelector(
+              ".swal2-timer-progress-bar"
+            );
+            timerInterval = setInterval(() => {
+              if (timerElement) {
+                timerElement.style.width = `${swal.getTimerLeft()}%`;
+              }
+            }, 400);
+          },
+          willClose: () => {
+            clearInterval(timerInterval);
+          },
+        })
+        .then((result) => {
+          if (result.dismiss === swal.DismissReason.timer) {
+            window.location.href = "/userspace";
+          }
+        });
     }
   };
 
   const onSignUp = (e) => {
     e.preventDefault();
     console.log("captcha is ", captcha);
-    if(!captcha){
+    if (!captcha) {
       swal.fire({
         title: "Oops!",
         text: "Please complete the captcha",
@@ -94,30 +98,32 @@ const Login = () => {
         confirmButtonText: "Okay",
       });
       return;
-      
-    }else{
+    } else {
       setLoading(true);
-      Axios.post("https://auth-server-x-fab950a2305f.herokuapp.com/v1/auth/capcheck", {
-        captcha: captcha
-      }).then((response) => {
-        console.log("succesfull captcha response  ", response.data);
-        setCaptcha("");
-        //now handles login
-        handleLogin();
-
-
-      }).catch((error) => {
-        console.log("error in captcha response ", error);
-        swal.fire({
-          title: "Oops!",
-          text: "Captcha verification failed",
-          icon: "error",
-          confirmButtonText: "Okay",
+      Axios.post(
+        "https://auth-server-x-fab950a2305f.herokuapp.com/v1/auth/capcheck",
+        {
+          captcha: captcha,
+        }
+      )
+        .then((response) => {
+          console.log("succesfull captcha response  ", response.data);
+          setCaptcha("");
+          //now handles login
+          handleLogin();
+        })
+        .catch((error) => {
+          console.log("error in captcha response ", error);
+          swal.fire({
+            title: "Oops!",
+            text: "Captcha verification failed",
+            icon: "error",
+            confirmButtonText: "Okay",
+          });
+          setLoading(false);
         });
-        setLoading(false);
-      });
     }
-  }
+  };
 
   return (
     <Grid>

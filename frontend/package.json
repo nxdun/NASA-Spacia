@@ -15,6 +15,8 @@
     "@mui/icons-material": "^5.15.15",
     "@mui/material": "^5.15.15",
     "@react-spring/web": "^9.7.3",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.3.0",
     "axios": "^1.6.8",
     "ldrs": "^1.0.1",
     "prop-types": "^15.8.1",
