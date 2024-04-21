@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export const useFetchFromNasaApi = () => {
   const [imageUrls, setImageUrls] = useState([]);
@@ -73,4 +74,49 @@ export const useFetchFromLocalimages = () => {
   }, []);
 
   return { loading, imageUrls };
+};
+
+export const useFetchSendToServer = (title, url) => {
+
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_AUTH_SERVER}/v1/auth/appendimage/`,
+          {
+            username: localStorage.getItem("username"),
+            title : title,
+            url : url,
+          },
+          {
+            headers: {
+              // Specify your headers here
+              'auth': localStorage.getItem("auth"), // Example header
+            }
+          }
+        );
+        console.log("send image to server Succeess", response.data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Image saved successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
+
+      
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+          footer: 'Please try again later'
+        })
+      }
+    };
+
+    fetchImages();
+  }, [title, url]);
+
 };
