@@ -28,9 +28,9 @@ const Login = () => {
     width: 290,
     margin: "15vh auto",
     opacity: 0.8,
-    background: "rgba(234, 234, 234, 0.7)", // Semi-transparent background color
-    backdropFilter: "blur(20px)", // Apply background blur
-    WebkitBackdropFilter: "blur(10px)", // Webkit version for Safari
+    background: "rgba(255, 255, 255, 0.5)", // Semi-transparent background color
+    backdropFilter: "blur(30px)", // Apply background blur
+    WebkitBackdropFilter: "blur(30px)", // Webkit version for Safari
     boxShadow: "none", // Remove box shadow to maintain the glass effect,
   };
   const avatarStyle = { backgroundColor: "#1bbd7e" };
