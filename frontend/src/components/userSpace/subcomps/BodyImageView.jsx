@@ -2,7 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "src/styles/image-gallery.css";
-import { useFetchFromNasaApi, sendImageToServer } from "src/services/fetchFromServers";
+import {
+  useFetchFromNasaApi,
+  sendImageToServer,
+} from "src/services/fetchFromServers";
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -12,10 +15,13 @@ const BodyImageView = () => {
   const imageGalleryRef = useRef(null);
 
   // Send the current image to the server when the plus button is clicked
-  const handlePlusClick = () => { 
+  const handlePlusClick = () => {
     const currentIndex = imageGalleryRef.current.getCurrentIndex();
     if (images[currentIndex]) {
-      sendImageToServer(images[currentIndex].title, images[currentIndex].original);
+      sendImageToServer(
+        images[currentIndex].title,
+        images[currentIndex].original
+      );
     }
   };
 
@@ -32,7 +38,6 @@ const BodyImageView = () => {
     }
   }, [loading, imageUrls]);
 
-  
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -44,9 +49,20 @@ const BodyImageView = () => {
         items={images}
         thumbnailPosition="left"
         autoPlay="true"
+        autoPlayInterval="5000"
         onErrorImageURL="src/assets/spacia.svg"
       />
-      <Fab color="primary" aria-label="add" sx={{ position: "sticky" }} onClick={handlePlusClick}>
+      <Fab
+        color="primary"
+        aria-label="add"
+        sx={{
+          position: "absolute",
+          bottom: "5vh", // Adjust as needed to set the distance from the bottom
+          right: "5vh", // Adjust as needed to set the distance from the right
+        }}
+        onClick={handlePlusClick}
+      >
+        {" "}
         <AddIcon />
       </Fab>
     </>
