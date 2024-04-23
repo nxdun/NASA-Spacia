@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import DownloadIcon from '@mui/icons-material/Download';
 import { useFetchFromLocalimages } from "src/services/fetchFromServers";
 import { saveAs } from 'file-saver'
-
+//this function is used to set the image src and srcset
 function srcset(image, width, height, rows = 1, cols = 1) {
   return {
     src: `${image}?w=${width * cols}&h=${height * rows}&fit=crop&auto=format`,
@@ -18,6 +18,7 @@ function srcset(image, width, height, rows = 1, cols = 1) {
 
 
 const ImageLists = () => {
+  //fetch image urls from local images
   const { imageUrls } = useFetchFromLocalimages();
   //set imageUrls to itemData
   const itemData = imageUrls.map((item) => ({

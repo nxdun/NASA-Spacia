@@ -20,7 +20,7 @@ const LandingBody = () => {
     justifyContent: "center",
     alignItems: "center",
     position: "absolute",
-    top: `100vh`, // Position below the first skeleton
+    top: `100vh`,
     left: "0",
     zIndex: 3,
   };

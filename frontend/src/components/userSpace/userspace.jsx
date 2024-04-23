@@ -2,11 +2,9 @@ import { useState } from "react";
 import LandingBody from "src/components/userSpace/subcomps/landingBody";
 import { Container, Grid, Skeleton } from "@mui/material";
 import Header from "src/components/userSpace/subcomps/header";
-// import DynamicBackdrop from "src/components/common/backdrop";
 
 const Userspace = () => {
   const [value, setValue] = useState(0); // Initially, show the LandingBody component
-  // const [loading, setLoading] = useState(false); //loadintg state
 
   const logsOut = () => {
     window.location.href = "/logout";
