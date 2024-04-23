@@ -11,6 +11,7 @@ const BodyImageView = () => {
   const [images, setImages] = useState([]);
   const imageGalleryRef = useRef(null);
 
+  // Send the current image to the server when the plus button is clicked
   const handlePlusClick = () => { 
     const currentIndex = imageGalleryRef.current.getCurrentIndex();
     if (images[currentIndex]) {
@@ -18,6 +19,7 @@ const BodyImageView = () => {
     }
   };
 
+  //hook to update the images
   useEffect(() => {
     if (!loading) {
       console.log("Image urls:", imageUrls);
@@ -30,6 +32,7 @@ const BodyImageView = () => {
     }
   }, [loading, imageUrls]);
 
+  
   if (loading) {
     return <div>Loading...</div>;
   }

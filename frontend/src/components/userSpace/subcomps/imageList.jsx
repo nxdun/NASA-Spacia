@@ -3,8 +3,9 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import ImageListItemBar from '@mui/material/ImageListItemBar';
 import IconButton from '@mui/material/IconButton';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
+import DownloadIcon from '@mui/icons-material/Download';
 import { useFetchFromLocalimages } from "src/services/fetchFromServers";
+import { saveAs } from 'file-saver'
 
 function srcset(image, width, height, rows = 1, cols = 1) {
   return {
@@ -57,8 +58,9 @@ const ImageLists = () => {
                 <IconButton
                   sx={{ color: 'white' }}
                   aria-label={`star ${item.title}`}
+                  onClick={() => saveAs(item.img, item.title)}
                 >
-                  <StarBorderIcon />
+                  <DownloadIcon />
                 </IconButton>
               }
               actionPosition="left"

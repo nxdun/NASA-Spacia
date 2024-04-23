@@ -19,6 +19,7 @@
     "@tsparticles/slim": "^3.3.0",
     "axios": "^1.6.8",
     "dotenv": "^16.4.5",
+    "file-saver": "^2.0.5",
     "ldrs": "^1.0.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
