@@ -2,8 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "src/styles/image-gallery.css";
-import { useFetchFromNasaApi, useFetchSendToServer } from "src/services/fetchFromServers";
-import "src/assets/spacia.svg";
+import { useFetchFromNasaApi, sendImageToServer } from "src/services/fetchFromServers";
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 
@@ -11,19 +10,21 @@ const BodyImageView = () => {
   const { loading, imageUrls } = useFetchFromNasaApi();
   const [images, setImages] = useState([]);
   const imageGalleryRef = useRef(null);
-  const UseplusClick = () => { 
-    console.log("plus clicked current url:", images[imageGalleryRef.current.getCurrentIndex()]);
-    useFetchSendToServer(images[imageGalleryRef.current.getCurrentIndex()].title, images[imageGalleryRef.current.getCurrentIndex()].original);
-  }
+
+  const handlePlusClick = () => { 
+    const currentIndex = imageGalleryRef.current.getCurrentIndex();
+    if (images[currentIndex]) {
+      sendImageToServer(images[currentIndex].title, images[currentIndex].original);
+    }
+  };
 
   useEffect(() => {
     if (!loading) {
       console.log("Image urls:", imageUrls);
-      // Convert imageUrls to ImageGallery items
       const imageItems = imageUrls.map((url) => ({
         original: url.hdurl,
         thumbnail: url.thumb,
-        title : url.title,
+        title: url.title,
       }));
       setImages(imageItems);
     }
@@ -42,7 +43,7 @@ const BodyImageView = () => {
         autoPlay="true"
         onErrorImageURL="src/assets/spacia.svg"
       />
-      <Fab color="primary" aria-label="add" sx={{position : "sticky" }} onClick={UseplusClick}>
+      <Fab color="primary" aria-label="add" sx={{ position: "sticky" }} onClick={handlePlusClick}>
         <AddIcon />
       </Fab>
     </>
