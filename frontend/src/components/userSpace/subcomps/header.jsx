@@ -66,7 +66,7 @@ const Header = ({ value, setValue, logsOut }) => {
               onChange={(e, value) => setValue(value)}
             >
               <Tab label="Nasa Image of the day" />
-              <Tab label="api2" />
+              <Tab label="Mars Rover Photos" />
             </Tabs>
             <Button
               sx={{

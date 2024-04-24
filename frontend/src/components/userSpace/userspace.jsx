@@ -1,45 +1,29 @@
 import { useState } from "react";
 import LandingBody from "src/components/userSpace/subcomps/landingBody";
-import { Container, Grid, Skeleton } from "@mui/material";
+import MarsRoverPics from "src/components/userSpace/subcomps/MarsRoverPics";
+import { Container, Grid } from "@mui/material";
 import Header from "src/components/userSpace/subcomps/header";
-
+//TODO:change value 1 to 0
+//added it for debug purposes
 const Userspace = () => {
-  const [value, setValue] = useState(0); // Initially, show the LandingBody component
+  const [value, setValue] = useState(1); // Initially, show the LandingBody component 
 
   const logsOut = () => {
     window.location.href = "/logout";
   };
 
-  const style2 = {
-    height: `800px`,
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    position: "absolute",
-    top: `10vh`,
-    left: "0",
-  };
+
 
   return (
     <Container>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Header value={value} setValue={setValue} logsOut={logsOut}  />
+          <Header value={value} setValue={setValue} logsOut={logsOut} />
         </Grid>
         <Grid item xs={12}>
-          {value === 0 ? (
-            <LandingBody />
-          ) : (
-            <Skeleton
-          variant="rectangular"
-          sx={{ bgcolor: "green" }}
-          style={style2}
-        />
-          )}
+          {value === 0 ? <LandingBody /> : <MarsRoverPics />}
         </Grid>
       </Grid>
-      {/* <DynamicBackdrop open={loading} /> */}
     </Container>
   );
 };

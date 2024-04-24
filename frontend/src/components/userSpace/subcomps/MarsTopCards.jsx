@@ -9,19 +9,19 @@ import Button from "@mui/material/Button";
 const MarsTopCards = () => {
   const cardData = [
     {
-      image: "../../../../public/image1.jpg",
+      image: "../../../../public/spacia.png",
       title: "Title 1",
       description: "Description for Card 1",
       handleClick: () => handleButtonClick(1),
     },
     {
-      image: "../../../../public/image2.jpg",
+      image: "../../../../public/spacia.png",
       title: "Title 2",
       description: "Description for Card 2",
       handleClick: () => handleButtonClick(2),
     },
     {
-      image: "../../../../public/image3.jpg",
+      image: "../../../../public/spacia.png",
       title: "Title 3",
       description: "Description for Card 3",
       handleClick: () => handleButtonClick(3),
@@ -37,13 +37,7 @@ const MarsTopCards = () => {
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item xs={12} md={8} lg={6}>
-        <Card sx={{
-          opacity: 0.8,
-          background: "rgba(234, 234, 234, 0.7)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(10px)",
-          boxShadow: "none",
-        }}>
+        <Card sx={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
           <Grid container spacing={2}>
             {cardData.map((data, index) => (
               <Grid item xs={12} md={4} key={index}>
@@ -53,6 +47,9 @@ const MarsTopCards = () => {
                     alt="Card image"
                     height="140"
                     image={data.image}
+                    fontSize="large"
+                    color="primary"
+                    backgroundColor="white"
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

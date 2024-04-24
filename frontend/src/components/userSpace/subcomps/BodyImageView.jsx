@@ -33,7 +33,7 @@ const BodyImageView = () => {
       const imageItems = imageUrls.map((url) => ({
         original: url.hdurl,
         thumbnail: url.thumb,
-        title: url.title,
+        description: url.title,
       }));
       setImages(imageItems);
     }
