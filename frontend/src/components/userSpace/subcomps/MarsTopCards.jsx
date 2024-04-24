@@ -19,8 +19,8 @@ const MarsTopCards = () => {
   const cardData = [
     {
       id: 1,
-      image: "../../../public/rover-o.jpg",
-      title: "Opportunity Rover",
+      image: "/rover-o.jpg",
+      title: "Opportunity",
       description:
         "Meet Opportunity, the resilient explorer roaming the Martian surface since 2004. This intrepid robot has defied all odds, surviving dust storms and harsh conditions to unveil the secrets of Mars. With its keen eye and unwavering spirit, Opportunity continues to inspire generations with its groundbreaking discoveries.",
       buttons: [
@@ -33,8 +33,8 @@ const MarsTopCards = () => {
     },
     {
       id: 2,
-      image: "../../../public/rover-c.jpg",
-      title: "Curiosity Rover",
+      image: "/rover-c.jpg",
+      title: "Curiosity",
       description:
         "Curiosity, the modern marvel of Martian exploration, is not just a robot; it's a testament to human ingenuity and curiosity. Armed with cutting-edge instruments and an insatiable thirst for knowledge, Curiosity has been unraveling the mysteries of Mars since its touchdown in 2012. From ancient lakebeds to towering mountains",
       buttons: [
@@ -49,8 +49,8 @@ const MarsTopCards = () => {
     },
     {
       id: 3,
-      image: "../../../public/rover-s.png",
-      title: "Spirit Rover",
+      image: "/rover-s.png",
+      title: "Spirit",
       description:
         "Spirit, the pioneering rover that blazed a trail on the Martian frontier, embodies the spirit of exploration and discovery. From its humble beginnings in 2004, Spirit ventured into the unknown, traversing rugged terrain and enduring Martian winters to unlock the secrets of the red planet. Though silent now, Spirit's legacy lives on",
       buttons: [
@@ -121,7 +121,7 @@ const MarsTopCards = () => {
                     />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        {data.title}
+                        {data.title} Rover
                       </Typography>
                       <Typography variant="body2" color="grey">
                         {data.description}
