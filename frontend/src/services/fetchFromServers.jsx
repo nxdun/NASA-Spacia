@@ -120,49 +120,6 @@ export const sendImageToServer = async (title, url) => {
   }
 };
 
-export const useMarsNasaApi = (p) => {
-  /*
-   * Fetch images from the Mars Rover API
-   * @param p: object containing rover, button and date
-   */
-  const [res, setres] = useState([]);
-  const [loading, setLoading] = useState(true);
-  //convert date to earth_time
-  const date = new Date(p.date);
-  const earth_time = `${date.getFullYear()}-${
-    date.getMonth() + 1
-  }-${date.getDate()}`;
-
-  //make p.date = 2013-04-23T18:30:00.000Z to 2013-04-23
-  setLoading(true);
-
-  const fetchImages = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/${
-          p.rover
-        }/photos?sol=0&earth_time=${earth_time}&camera=${p.button}&api_key=${
-          import.meta.env.VITE_NASA_API_KEY
-        }`
-      );
-      setres(response.data.photos);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching images:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: `error fetching images: ${error}`,
-        footer: "Please try again later",
-      });
-      setLoading(false);
-    }
-  };
-
-  fetchImages();
-
-  return { loading, res };
-};
 
 export const useMarsRoverPics = (p) => {
   const [imageUrls, setImageUrls] = useState([]);
@@ -171,11 +128,11 @@ export const useMarsRoverPics = (p) => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        console.log(`https://api.nasa.gov/mars-photos/api/v1/rovers/${p.rover}/photos?sol=1&api_key=${
+        console.log(`https://api.nasa.gov/mars-photos/api/v1/rovers/${p.rover}/photos?sol=1&camera=${p.button}&api_key=${
           import.meta.env.VITE_NASA_API_KEY
         }`);
         const response = await axios.get(
-          `https://api.nasa.gov/mars-photos/api/v1/rovers/${p.rover}/photos?sol=1&api_key=${
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${p.rover}/photos?sol=1&camera=${p.button}&api_key=${
             import.meta.env.VITE_NASA_API_KEY
           }`
         );
@@ -193,7 +150,44 @@ export const useMarsRoverPics = (p) => {
     };
 
     fetchImages();
-  }, [p.rover]);
+  }, [p.rover, p.button]);
+
+
+
+  return { loading, imageUrls };
+};
+
+export const useMarsRoverPicsVariant = (p) => {
+  const [imageUrls, setImageUrls] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const earth_date = p.date.toISOString().split("T")[0];
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        console.log(`https://api.nasa.gov/mars-photos/api/v1/rovers/${p.rover}/photos?sol=1&camera=${p.button}&earth_date=${earth_date}&api_key=${
+          import.meta.env.VITE_NASA_API_KEY
+        }`);
+        const response = await axios.get(
+          `https://api.nasa.gov/mars-photos/api/v1/rovers/${p.rover}/photos?sol=1&camera=${p.button}&api_key=${
+            import.meta.env.VITE_NASA_API_KEY
+          }`
+        );
+        // Extract img_src and rover full name from response
+        const urls = response.data.photos.map((item) => ({
+          img_src: item.img_src,
+        }));
+
+        setImageUrls(urls);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching images:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchImages();
+  }, [p.rover, p.button, earth_date]);
 
 
 

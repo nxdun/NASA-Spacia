@@ -4,7 +4,7 @@ import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "src/styles/image-gallery.css";
 import {
-  useMarsRoverPics,
+  useMarsRoverPicsVariant,
   sendImageToServer,
 } from "src/services/fetchFromServers";
 import { Fab, Skeleton, Tooltip } from "@mui/material";
@@ -15,9 +15,9 @@ import AddIcon from "@mui/icons-material/Add";
  * @param {object} p - The props object
  * @returns {JSX.Element} - The JSX element
  */
-const MarsImagesGallery = (p) => {
+const MarsImagesForDate = (p) => {
   const images = [];
-  const { loading, imageUrls } = useMarsRoverPics(p);
+  const { loading, imageUrls } = useMarsRoverPicsVariant(p);
   imageUrls.forEach((url) => {
     images.push({
       original: url.img_src,
@@ -67,8 +67,8 @@ const MarsImagesGallery = (p) => {
   );
 };
 
-export default MarsImagesGallery;
+export default MarsImagesForDate;
 
-MarsImagesGallery.propTypes = {
+MarsImagesForDate.propTypes = {
   p: propval.object,
 };

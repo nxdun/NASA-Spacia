@@ -6,7 +6,7 @@ import Header from "src/components/userSpace/subcomps/header";
 //TODO:change value 1 to 0
 //added it for debug purposes
 const Userspace = () => {
-  const [value, setValue] = useState(1); // Initially, show the LandingBody component 
+  const [value, setValue] = useState(0); // Initially, show the LandingBody component 
 
   const logsOut = () => {
     window.location.href = "/logout";

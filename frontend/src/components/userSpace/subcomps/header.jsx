@@ -8,13 +8,13 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { ping } from "ldrs";
+import { hatch } from "ldrs";
 
 import "src/styles/index.css";
 import proptypes from "prop-types";
 
 const Header = ({ value, setValue, logsOut }) => {
-  ping.register();
+  hatch.register();
   const theme = useTheme();
   const isMatch = useMediaQuery(theme.breakpoints.down("md"));
   const username = localStorage.getItem("username");
@@ -32,12 +32,7 @@ const Header = ({ value, setValue, logsOut }) => {
       }}
     >
       <Toolbar>
-        <l-ping
-          size="45"
-          speed="2"
-          color="pink"
-          sx={{ transform: "scale(2)" }}
-        ></l-ping>
+        <l-hatch size="28" stroke="4.5" speed="3.5" color="white"></l-hatch>
 
         {isMatch ? (
           <>
@@ -54,9 +49,13 @@ const Header = ({ value, setValue, logsOut }) => {
           </>
         ) : (
           <>
-            <Typography sx={{ fontSize: "2rem", paddingLeft: "10%" }}>
-              {//if username is not null, display the username
-              username ? `Welcome ${username}` : " stranger" }
+            <Typography
+              sx={{ fontSize: "2rem", paddingLeft: "10%", color: "grey" }}
+            >
+              {
+                //if username is not null, display the username
+                username ? `Welcome ${username}` : " stranger"
+              }
             </Typography>
             <Tabs
               sx={{ marginLeft: "auto" }}
