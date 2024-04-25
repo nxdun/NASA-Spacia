@@ -1,4 +1,4 @@
-import { useState } from "react";
+import  { useState } from "react";
 import PropTypes from "prop-types";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -9,10 +9,11 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
-
+import MarsImagesGallery from "src/components/userSpace/subcomps/MarsImagesGallery";
 const MarsRenderResult = ({ rover, button }) => {
   const [selectedDate, setSelectedDate] = useState(null);
-  const [isValidDate, setIsValidDate] = useState(true);
+  const [isValidDate, setIsValidDate] = useState(false);
+  const [showHi, setShowHi] = useState(false);
 
   const ButtonAbbr = {
     FHAZ: "Front Hazard Avoidance Camera",
@@ -37,13 +38,17 @@ const MarsRenderResult = ({ rover, button }) => {
     return `Mission Period: ${start} to ${end}`;
   };
 
-  const getAbbr = (name) => {
-    return Object.keys(ButtonAbbr).find((key) => ButtonAbbr[key] === name);
+  const getAbbr = () => {
+    return Object.keys(ButtonAbbr).find((key) => ButtonAbbr[key] === button);
   };
 
   const handleDateChange = (date) => {
-    setSelectedDate(date);
-    validateDate(date);
+    //check  date is equal to date in the usestate
+    if (date !== selectedDate) {
+      setSelectedDate(date);
+      validateDate(date);
+    }
+  
   };
 
   const validateDate = (date) => {
@@ -53,6 +58,15 @@ const MarsRenderResult = ({ rover, button }) => {
       const endDate = new Date(roverDates.end);
       setIsValidDate(date >= startDate && date <= endDate);
     }
+  };
+
+  const handleFetchImages = () => {
+    console.log("Fetching images for", rover, button, selectedDate);
+    setShowHi(true);
+    //disable button
+    setIsValidDate(false);
+    
+
   };
 
   return (
@@ -77,7 +91,7 @@ const MarsRenderResult = ({ rover, button }) => {
             >
               <DatePicker
                 label="Select Date"
-                renderInput={(params) => <TextField {...params} style={{ textAlign: "center" }}/>}
+                renderInput={(params) => <TextField {...params} style={{ textAlign: "center" }} />}
                 value={selectedDate}
                 onChange={handleDateChange}
               />
@@ -91,11 +105,32 @@ const MarsRenderResult = ({ rover, button }) => {
             color="primary"
             fullWidth
             disabled={!isValidDate}
+            onClick={handleFetchImages}
           >
             Fetch Images
           </Button>
         </CardContent>
       </Card>
+
+      {showHi && (
+        <Card
+          sx={{
+            backgroundColor: "rgba(234, 234, 234, 0.3)",
+            color: "white",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
+            transition: "transform 0.3s ease",
+            marginTop: "20px",
+            "&:hover": {
+              transform: "scale(1.05)",
+            },
+          }}
+        >
+          <CardContent style={{ textAlign: "center" }}>
+            <MarsImagesGallery rover={rover.toString()} button={getAbbr()} date={selectedDate} />
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 };

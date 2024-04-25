@@ -15,12 +15,12 @@ const BodyImageView = () => {
   const imageGalleryRef = useRef(null);
 
   // Send the current image to the server when the plus button is clicked
+  console.log("images", images);
   const handlePlusClick = () => {
-    const currentIndex = imageGalleryRef.current.getCurrentIndex();
-    //add image to the server user db
-    if (images[currentIndex]) {
+    const currentIndex = imageGalleryRef.current ? imageGalleryRef.current.getCurrentIndex() : -1;
+    if (currentIndex !== -1 && images[currentIndex]) {
       sendImageToServer(
-        images[currentIndex].title,
+        images[currentIndex].description,
         images[currentIndex].original
       );
     }
@@ -29,7 +29,6 @@ const BodyImageView = () => {
   //hook to update the images
   useEffect(() => {
     if (!loading) {
-      console.log("Image urls:", imageUrls);
       const imageItems = imageUrls.map((url) => ({
         original: url.hdurl,
         thumbnail: url.thumb,
@@ -49,13 +48,12 @@ const BodyImageView = () => {
         ref={imageGalleryRef}
         items={images}
         thumbnailPosition="left"
-        autoPlay="true"
-        autoPlayInterval="5000"
+        autoPlay={true}
+        autoPlayInterval={5000}
         onErrorImageURL="src/assets/spacia.svg"
       />
       <Tooltip title="Save to your collection" arrow>
       <Fab
-
         aria-label="add"
         sx={{
           backgroundColor: "#FF2E63",
