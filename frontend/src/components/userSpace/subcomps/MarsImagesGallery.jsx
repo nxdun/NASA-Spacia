@@ -50,6 +50,7 @@ const MarsImagesGallery = (p) => {
             items={images}
             showPlayButton={false}
             showFullscreenButton={false}
+            thumbnailPosition="left"
           />
           <Tooltip title="Save Image" aria-label="add">
             <Fab
