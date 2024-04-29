@@ -1,5 +1,6 @@
-⭐ demo > [Deployed application]([mailto:inbox.nadun@gmail.com](https://remarkable-trifle-d6dcb6.netlify.app/))
 #  🛰️Spacia
+⭐ demo > ([Deployed application : Netlify](https://nasa-spacia.netlify.app/login))
+🛰️ Authentication Backend > [Deployed Backend : Heroku](https://auth-server-x-fab950a2305f.herokuapp.com/)
 
 ## Table of Contents
 
@@ -14,7 +15,7 @@
   - [License](#license)
   - [Contact](#contact)
 ## Description
-
+  provide 
 ## Installation
 
 To install Spacia, follow these steps:

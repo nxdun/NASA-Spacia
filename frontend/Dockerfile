@@ -14,10 +14,12 @@ RUN npm install
 COPY . .
 
 # Build the React app
+# currntly not in production mode
+# TODO: change to production mode
 RUN npm run dev
 
 # Expose the port on which the app will run
 EXPOSE 4173
 
 # Define the command to run the app
-CMD ["npm", "start"]
+CMD ["npm", "run", "dev"]
