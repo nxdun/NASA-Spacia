@@ -92,7 +92,6 @@ const Register = () => {
         setCaptcha("");
         //now handles login
         handleRegister();
-        ReCAPTCHA.reset();
       }).catch((error) => {
         console.log("error in captcha response ", error);
         swal.fire({
