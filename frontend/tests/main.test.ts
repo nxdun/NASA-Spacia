@@ -5,3 +5,9 @@ describe('main', () => {
     expect(1).toBe(1)
   })
 })
+
+describe('main', () => {
+  it('should work', () => {
+    expect(1).toBe(1)
+  })
+})
