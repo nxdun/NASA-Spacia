@@ -27,6 +27,7 @@ const DynamicBackdrop = ({ open }) => {
     <Backdrop
       open={open}
       style={{ zIndex: 999, backgroundColor: "rgba(0, 0, 0, 0.8)" }}
+      data-testid="backdrop"
     >
       <l-infinity
         size="55"

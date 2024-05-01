@@ -55,7 +55,7 @@ const AuthChecker = ({ children }) => {
     checkAuthentication();
   }, []);
 
-  return authenticated ? children : <DynamicBackdrop open={!authenticated} />;
+  return authenticated ? children : <DynamicBackdrop open={!authenticated} data-testid="backdrop" />;
 };
 
 AuthChecker.propTypes = {

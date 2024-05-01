@@ -1,13 +1,16 @@
 import { it, expect, describe } from 'vitest'
 import { render, screen } from '@testing-library/react'
-import Backdrop from '../../src/components/common/backdrop'
-import App from '../../src/App'
+import AuthChecker from 'src/services/authChecker'
+
 describe('Backdrop', () => {
-  it('render backdrop when application started', () => {
-      //run application
-        render(<App/>)
+  it('render backdrop when proceed to userspace', () => {
+      //fake token
+      localStorage.setItem('token', 'token')
+        render(<AuthChecker><userSpace /></AuthChecker>)
         //check if backdrop is rendered
-        expect(screen.getByTestId('backdrop')).toBeInTheDocument()
+        expect(screen.getByTestId('backdrop')).toBeTruthy()
       })
+
   
+    
 })
