@@ -129,7 +129,8 @@ const MarsTopCards = () => {
                     </CardContent>
                     <CardActions>
                       <Button
-                        size="small"
+                        fullWidth
+                        size="large"
                         onClick={() => handleButtonClick(data.id, data.title)}
                       >
                         {showMoreInfo === data.id ? "Hide Info" : "Learn More"}
@@ -176,13 +177,20 @@ const MarsTopCards = () => {
                     variant="text"
                     aria-label="text button group"
                     color="secondary"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      flexWrap: "wrap",
+                    }}
                   >
                     {cardData
                       .find((data) => data.id === showMoreInfo)
                       ?.buttons.map((button, index) => (
                         <Button
+                          fullWidth
                           key={index}
                           size="small"
+                          style={{ margin: "5px" }}
                           onClick={() => handleCameraButtonClick(button)}
                         >
                           {button}
@@ -194,10 +202,7 @@ const MarsTopCards = () => {
             </Slide>
           )}
           {selectedButton && (
-            <MarsRenderResult
-              rover={selectedRover}
-              button={selectedButton}
-            />
+            <MarsRenderResult rover={selectedRover} button={selectedButton} />
           )}
         </Grid>
       </Grid>

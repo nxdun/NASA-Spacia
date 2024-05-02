@@ -5,7 +5,7 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import "src/styles/image-gallery.css";
 import {
   useMarsRoverPicsVariant,
-  sendImageToServer,
+  // sendImageToServer,
 } from "src/services/fetchFromServers";
 import { Fab, Skeleton, Tooltip } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
@@ -33,12 +33,12 @@ const MarsImagesForDate = (p) => {
     const currentIndex = imageGalleryRef.current.getCurrentIndex();
     console.log("currentIndex", currentIndex);
     //add image to the server user db
-    if (images[currentIndex]) {
-      sendImageToServer(
-        images[currentIndex].title,
-        images[currentIndex].original
-      );
-    }
+    // if (images[currentIndex]) {
+    //   sendImageToServer(
+    //     images[currentIndex].title,
+    //     images[currentIndex].original
+    //   );
+    // }
   };
 
   return (

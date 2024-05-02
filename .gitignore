@@ -24,7 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 #personal
-.drawio
 .vscode
 backend/package-lock.json
 frontend/package-lock.json

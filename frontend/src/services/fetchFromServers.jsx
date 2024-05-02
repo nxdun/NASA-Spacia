@@ -20,7 +20,7 @@ export const useFetchFromNasaApi = () => {
 
         // Extract hdurl and thumbnail_url from response
         const urls = response.data.map((item) => ({
-          hdurl: item.hdurl,
+          hdurl: item.url,
           thumb: item.url,
           title: item.title,
         }));
