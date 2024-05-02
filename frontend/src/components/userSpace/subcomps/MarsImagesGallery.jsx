@@ -17,25 +17,26 @@ import AddIcon from "@mui/icons-material/Add";
  */
 const MarsImagesGallery = (p) => {
   const images = [];
-  const { loading, imageUrls } = useMarsRoverPics(p);
+  const { imageUrls } = useMarsRoverPics(p);
   imageUrls.forEach((url) => {
     images.push({
+      title:`IMG: ${p.rover} + ${p.button}`,
       original: url.img_src,
       thumbnail: url.img_src,
     });
   });
-  console.log("..images", images);
-  console.log("..loading", loading);
   const imageGalleryRef = useRef(null);
 
   //SAVE IMAGE TO SERVER
   const handlePlusClick = () => {
     const currentIndex = imageGalleryRef.current.getCurrentIndex();
-    console.log("currentIndex", currentIndex);
+    console.log("cccurrentIndex\n", images[currentIndex].title,images[currentIndex].original );
     //add image to the server user db
     if (images[currentIndex]) {
       sendImageToServer(
-        images[currentIndex].title,
+        //set current rover + camtype as title
+        images[currentIndex].title
+        ,
         images[currentIndex].original
       );
     }
@@ -46,6 +47,7 @@ const MarsImagesGallery = (p) => {
       {images.length > 0 && (
         <>
           <ImageGallery
+            
             ref={imageGalleryRef}
             items={images}
             showPlayButton={false}
