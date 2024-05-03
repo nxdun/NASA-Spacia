@@ -15,13 +15,13 @@ const Userspace = () => {
 
 
   return (
-    <Container>
+    <Container data-testid="main-container">
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Header value={value} setValue={setValue} logsOut={logsOut} />
         </Grid>
         <Grid item xs={12}>
-          {value === 0 ? <LandingBody /> : <MarsRoverPics />}
+          {value === 0 ? <LandingBody data-testid="landing-body" /> : <MarsRoverPics data-testid="mars-rover-pics" />}
         </Grid>
       </Grid>
     </Container>

@@ -42,6 +42,7 @@ const Footer = () => {
         zIndex: 1,
         visibility: isAppBarVisible ? "visible" : "hidden",
       }}
+      data-testid="app-bar"
     >
       <Toolbar>
         {isMatch ? (
@@ -55,7 +56,7 @@ const Footer = () => {
         )}
       </Toolbar>
     </AppBar>
-  );
+  )
 };
 
 export default Footer;

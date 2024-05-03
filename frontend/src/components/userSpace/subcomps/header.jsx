@@ -30,6 +30,7 @@ const Header = ({ value, setValue, logsOut }) => {
         width: "100%",
         zIndex: 1,
       }}
+      data-testid="header"
     >
       <Toolbar>
         <l-hatch size="28" stroke="4.5" speed="3.5" color="white"></l-hatch>

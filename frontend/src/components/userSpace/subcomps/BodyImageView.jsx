@@ -39,7 +39,8 @@ const BodyImageView = () => {
   }, [loading, imageUrls]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div
+    data-testid="Loading">Loading...</div>;
   }
 
   return (
@@ -51,24 +52,26 @@ const BodyImageView = () => {
         autoPlay={true}
         autoPlayInterval={5000}
         onErrorImageURL="src/assets/spacia.svg"
+        data-testid="image-gallery"
       />
       <Tooltip title="Save to your collection" arrow>
-      <Fab
-        aria-label="add"
-        sx={{
-          backgroundColor: "#FF2E63",
-          position: "absolute",
-          bottom: "5vh",
-          right: "5vh", 
-        }}
-        onClick={handlePlusClick}
-      >
-        {" "}
-        <AddIcon />
-      </Fab>
+        <Fab
+          aria-label="add"
+          sx={{
+            backgroundColor: "#FF2E63",
+            position: "absolute",
+            bottom: "5vh",
+            right: "5vh", 
+          }}
+          onClick={handlePlusClick}
+          data-testid="add-fab"
+        >
+          <AddIcon />
+        </Fab>
       </Tooltip>
     </>
   );
+  
 };
 
 export default BodyImageView;

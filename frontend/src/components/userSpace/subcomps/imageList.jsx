@@ -35,6 +35,7 @@ const ImageLists = () => {
       }}
       rowHeight={200}
       gap={1}
+      data-testid="imagelist"
     >
       {itemData.map((item) => {
         const cols = item.featured ? 2 : 1;
