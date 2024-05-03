@@ -17,20 +17,22 @@ const ErrorPath = () => {
         left: "50%",
         transform: "translate(-50%, -50%)",
       }}
+      data-testid="error-paper"
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom data-testid="error-message">
         Error!! invalid path <br/><br/><br/> {hasToken ? `${localStorage.getItem("username")} !! You are already logged in` : "Not a valid path."}
       </Typography>
-      <Typography>
+      <Typography data-testid="possible-routes">
         Possible routes 
         <br />
-        <a href="/login">Login</a>
+        <a href="/login" data-testid="login-link">Login</a>
         <br />
-        <a href="/register">Register</a>
-        {hasToken && <span><br/><a href="/userspace">User Space</a></span>}
+        <a href="/register" data-testid="register-link">Register</a>
+        {hasToken && <span><br/><a href="/userspace" data-testid="userspace-link">User Space</a></span>}
       </Typography>
     </Paper>
   );
+  
 };
 
 export default ErrorPath;

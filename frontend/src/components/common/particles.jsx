@@ -8,7 +8,6 @@ const Particle = () => {
   // this should be run only once per application lifetime
   useEffect(() => {
     initParticlesEngine(async (engine) => {
-
       await loadSlim(engine);
     }).then(() => {
       setInit(true);
@@ -326,11 +325,16 @@ const Particle = () => {
         id="tsparticles"
         particlesLoaded={particlesLoaded}
         options={options}
+        data-testid="particles-component"
       />
     );
   }
 
-  return <></>;
+  return (
+    <>
+      <div data-testid="particles-component"></div>
+    </>
+  );
 };
 
 export default Particle;
