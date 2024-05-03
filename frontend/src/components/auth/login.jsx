@@ -128,7 +128,7 @@ const Login = () => {
     <Grid>
       <Paper elevation={10} style={paperStyle}>
         <Grid align="center">
-          <Avatar style={avatarStyle}>
+          <Avatar style={avatarStyle} data-testid="avatar">
             <LockOutlinedIcon />
           </Avatar>
           <h2>Sign In</h2>
@@ -141,6 +141,7 @@ const Login = () => {
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            data-testid="username-input"
           />
           <TextField
             label="Password"
@@ -150,15 +151,18 @@ const Login = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            data-testid="password-input"
           />
           <FormControlLabel
             control={<Checkbox name="remember" color="primary" />}
             label="Remember me"
+            data-testid="remember-checkbox"
           />
           <ReCAPTCHA
             sitekey="6Leca74pAAAAALKX8Ze8i7OvxtOmrWyoRc6WS8vE"
             onChange={(token) => setCaptcha(token)}
             onExpired={() => setCaptcha("")}
+            data-testid="recaptcha"
           />
           <Button
             type="submit"
@@ -166,14 +170,15 @@ const Login = () => {
             variant="contained"
             style={btnstyle}
             fullWidth
+            data-testid="signin-button"
           >
             Sign in
           </Button>
         </form>
-        <Typography>
+        <Typography data-testid="forgot-password">
           <Link href="#">Forgot password ?</Link>
         </Typography>
-        <Typography>
+        <Typography data-testid="signup-link">
           {" "}
           Do you have an account ?<Link href="/register">Sign Up</Link>
         </Typography>
@@ -181,6 +186,7 @@ const Login = () => {
       <DynamicBackdrop open={loading} />
     </Grid>
   );
+  
 };
 
 export default Login;

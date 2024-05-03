@@ -1,6 +1,7 @@
 import { it, expect, describe } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import AuthChecker from 'src/services/authChecker'
+import "@testing-library/jest-dom/vitest"
 
 describe('Backdrop', () => {
   it('render backdrop when proceed to userspace', () => {

@@ -59,7 +59,7 @@ const Register = () => {
     }
   };
 
-  //handle register called in on signup
+  //handle register called in on signup..
   const onSignUp = (e) => {
     e.preventDefault();
 
@@ -90,7 +90,7 @@ const Register = () => {
       }).then((response) => {
         console.log("succesfull captcha response  ", response.data);
         setCaptcha("");
-        //now handles login
+        //now handles login.
         handleRegister();
       }).catch((error) => {
         console.log("error in captcha response ", error);
@@ -109,7 +109,7 @@ const Register = () => {
     <Grid>
       <Paper elevation={10} style={paperStyle}>
         <Grid align="center">
-          <Avatar style={avatarStyle}>
+          <Avatar style={avatarStyle} data-testid="avatar">
             <HowToRegOutlinedIcon />
           </Avatar>
           <h2>Register</h2>
@@ -122,6 +122,7 @@ const Register = () => {
             required
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            data-testid="username-input"
           />
           <TextField
             label="Password"
@@ -131,11 +132,13 @@ const Register = () => {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            data-testid="password-input"
           />
           <ReCAPTCHA
             sitekey="6Leca74pAAAAALKX8Ze8i7OvxtOmrWyoRc6WS8vE"
             onChange={(token) => setCaptcha(token)}
             onExpired={() => setCaptcha("")}
+            data-testid="recaptcha"
           />
           <Button
             type="submit"
@@ -143,11 +146,12 @@ const Register = () => {
             variant="contained"
             style={btnstyle}
             fullWidth
+            data-testid="register-button"
           >
             Register
           </Button>
         </form>
-        <Typography>
+        <Typography data-testid="login-link">
           {" "}
           Want to Login ? <Link href="/login">Login</Link>
         </Typography>
@@ -155,6 +159,7 @@ const Register = () => {
       <DynamicBackdrop open={loading} />
     </Grid>
   );
+  
 };
 
 export default Register;
