@@ -1,6 +1,6 @@
 import { it, expect, describe } from "vitest";
 import { render, screen } from "@testing-library/react";
-import ImageLists from "src/components/userSpace/subcomps/imageList"; // Assuming the correct path
+import ImageLists from "src/components/userSpace/subcomps/imageList"; 
 import "@testing-library/jest-dom/vitest";
 
 describe("imagelist component", () => {

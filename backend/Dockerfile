@@ -1,3 +1,5 @@
+# This file is used to build Nasa Spacia Backend Container
+
 # Use an official Node.js runtime as the base image
 FROM node:21.6.1-alpine
 

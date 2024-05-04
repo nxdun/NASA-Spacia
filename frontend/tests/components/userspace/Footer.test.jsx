@@ -1,6 +1,6 @@
 import { it, expect, describe, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Footer from "src/components/userSpace/subcomps/footer"; // Assuming the correct path
+import Footer from "src/components/userSpace/subcomps/footer"; 
 import "@testing-library/jest-dom/vitest";
 
 describe("AppBar component", () => {

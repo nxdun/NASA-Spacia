@@ -1,6 +1,6 @@
 import { it, expect, describe } from "vitest";
 import { render, screen } from "@testing-library/react";
-import Header from "src/components/userSpace/subcomps/Header"; // Assuming the correct path
+import Header from "src/components/userSpace/subcomps/Header";
 import "@testing-library/jest-dom/vitest";
 
 describe("header component", () => {

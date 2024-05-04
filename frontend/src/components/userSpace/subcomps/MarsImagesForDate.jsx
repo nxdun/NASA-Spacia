@@ -42,8 +42,8 @@ const MarsImagesForDate = (p) => {
   };
 
   return (
-    <>
-      {images.length > 0 && (
+    <div data-testid="mars-image-gallery">
+      {(images.length > 0 && (
         <>
           <ImageGallery
             ref={imageGalleryRef}
@@ -63,8 +63,8 @@ const MarsImagesForDate = (p) => {
             </Fab>
           </Tooltip>
         </>
-      ) || <Skeleton variant="rectangular" width={"100%"} height={"50vh"} />}
-    </>
+      )) || <Skeleton variant="rectangular" width={"100%"} height={"50vh"} />}
+    </div>
   );
 };
 
