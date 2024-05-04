@@ -1,6 +1,6 @@
 #  🛰️Spacia
-⭐ demo > ([Deployed application : Netlify](https://nasa-spacia.netlify.app/login))
-🛰️ Authentication Backend > [Deployed Backend : Heroku](https://auth-server-x-fab950a2305f.herokuapp.com/)
+⭐ [Deployed application : Netlify](https://documenter.getpostman.com/view/28802704/2sA35BbPtc)</br>
+🦈 [Authentication Backend > Deployed Backend : Heroku + Docker](https://auth-server-x-fab950a2305f.herokuapp.com/)</br>
 
 ## Table of Contents
 
@@ -10,31 +10,40 @@
   - [Installation](#installation)
   - [How-to-Run-Tests](#how-to-run-tests)
   - [Setting-enviroment-variables](#setting-enviroment-variables)
-  - [Usage](#usage)
-  - [Problems-Faced](#problems-faced)
   - [License](#license)
   - [Contact](#contact)
 ## Description
-  provide 
+  Spacia is a fullstack application that intergrate with official nasa api and provide images with personalised image gallery with download functionalities 
 ## Installation
 
 To install Spacia, follow these steps:
-  
 
 1. Clone the repository from GitHub.
+2. In commandLine Type `cd ./frontend`Navigate to the frontend directory.
+3. Install dependencies using `npm install`.
+4. Run `npm run dev` to open developer mode.
 
 ## How-to-Run-Tests
 
+in root directory run `npm test` to run in commandline
+in root directory run `npm tui` to run in Vitest user interface
+
 ## Setting-enviroment-variables
+### frontend
+- `VITE_AUTH_SERVER`: (Specify the backend server url)
+- `VITE_NASA_API_KEY`: (API Key from Official Nasa Website
+- `CAPTCHA_SECRET_KEY`: "Google recaptcha Client Key"
 
-
-## Usage
-
-## Problems-Faced
+### backend
+- `PORT`: (Specify the port number your server will run on)
+- `MONGOSTRING`: "mongodb+srv:// " URL
+- `JWT_SECRET`: SECRET key for Jwt Token
+- `CAPTCHA_SECRET_KEY`: "Google recaptcha Server Key"
+  
 
 ## License
 
-TimeTide is licensed under the UNLICENSED License.
+TimeTide is licensed under the ISC License. See [LICENSE](LICENSE) for more information.
 
 ## Contact
 
