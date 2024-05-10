@@ -46,9 +46,10 @@ const Login = () => {
       });
       return;
     }
+    //axios request to backend
     const success = await login(username, password);
     setLoading(false);
-
+ 
     if (success) {
       console.log("Login successful!");
       let timerInterval;

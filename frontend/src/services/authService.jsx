@@ -26,7 +26,6 @@ export const login = async (username, password) => {
         localStorage.setItem('username', username);
         return true; // Return true if login is successful
       } else {
-        // Handle authentication errors
         return false; // Return false if login fails
       }
     } catch (error) {
