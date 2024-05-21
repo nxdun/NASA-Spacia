@@ -1,5 +1,5 @@
 #  🛰️Spacia
-⭐ [Deployed application : Netlify](nasa-spacia.netlify.app)</br>
+⭐ [Deployed application : Netlify](https://bit.ly/nasaspacia)</br>
 🦈 [Authentication Backend > Deployed Backend : Heroku + Docker](https://auth-server-x-fab950a2305f.herokuapp.com/)</br>
 
 
